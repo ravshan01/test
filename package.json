@@ -16,9 +16,6 @@
     "vue-router": "^5.0.6"
   },
   "devDependencies": {
-    "@nuxtjs/storybook": "9.0.2-29368462.bd9ad8f",
-    "@storybook/addon-a11y": "~9.1.4",
-    "@storybook/addon-docs": "~9.1.4",
-    "storybook": "~9.1.4"
+    "@biomejs/biome": "2.4.15"
   }
 }
