@@ -3,7 +3,7 @@ import type { IRegionDTO } from "./regions.dto";
 
 export interface ISubscriptionPlanDTO {
   id: string;
-  regionID: IRegionDTO["id"];
+  regionIDs: IRegionDTO["id"][];
   typeID: IPlanTypeDTO["id"];
   price: number;
   currency: string;
