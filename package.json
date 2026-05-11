@@ -6,13 +6,19 @@
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
-    "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "preview": "nuxt preview"
   },
   "dependencies": {
+    "@faker-js/faker": "^10.4.0",
     "nuxt": "^4.4.4",
     "radix-vue": "^1.9.17",
     "vue": "^3.5.33",
     "vue-router": "^5.0.6"
+  },
+  "devDependencies": {
+    "@nuxtjs/storybook": "9.0.2-29368462.bd9ad8f",
+    "@storybook/addon-a11y": "~9.1.4",
+    "@storybook/addon-docs": "~9.1.4",
+    "storybook": "~9.1.4"
   }
 }
