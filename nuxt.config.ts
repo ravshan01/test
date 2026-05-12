@@ -8,6 +8,9 @@ export default defineNuxtConfig({
 		"./layers/plans",
 		"./layers/catalog",
 	],
+	routeRules: {
+		"/": { redirect: "/catalog" },
+	},
 	modules: ["@pinia/nuxt"],
 	css: ["~/assets/styles/core.css"],
 });
