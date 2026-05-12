@@ -21,6 +21,9 @@
 			},
 			"complexity": {
 				"noStaticOnlyClass": "off"
+			},
+			"a11y": {
+				"noSvgWithoutTitle": "off"
 			}
 		}
 	},
