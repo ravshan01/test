@@ -2,13 +2,15 @@
 
 ## Project Overview
 
-Nuxt 4 application with TypeScript using a hexagonal (ports & adapters) architecture organized via Nuxt Layers. The project is in early stages — no pages, components, or API routes exist yet. Mock data is in Russian.
+Nuxt 4 application with TypeScript using a hexagonal (ports & adapters) architecture organized via Nuxt Layers. Catalog page with region selector and subscription plan cards. Mock data in Russian.
 
 ## Tech Stack
 
 - **Runtime:** Nuxt 4, Vue 3, Vue Router 5
 - **Language:** TypeScript (target ES2024)
-- **UI:** radix-vue (headless components, installed but unused)
+- **State:** Pinia (`@pinia/nuxt`)
+- **UI:** radix-vue (headless components), CSS Modules
+- **Styling:** CSS custom properties (design tokens), `the-new-css-reset`, Inter Display font
 - **Linter/Formatter:** Biome 2.4.15 (no ESLint, no Prettier)
 - **Mock Data:** @faker-js/faker (Russian locale)
 - **Package Manager:** npm
@@ -35,8 +37,10 @@ No test commands exist yet (no test framework installed).
 - **Quotes:** Double quotes
 - **Semicolons:** No semicolons (Biome default for JS/TS)
 - **Imports:** Auto-organized (Biome assist enabled)
-- **Linter:** Biome recommended rules, `noStaticOnlyClass` is OFF (factory classes use static methods)
+- **Linter:** Biome recommended rules, `noStaticOnlyClass` OFF, `noNonNullAssertion` OFF
 - **Do not add comments** unless explicitly requested
+- **CSS:** CSS Modules (`.module.css`) for component styles, imported as `styles`
+- **Static assets:** Component-local `images/` folder with Vite import (e.g. `import icon from "./images/icon.svg"`), fonts in `public/fonts/`
 
 ## Architecture
 
@@ -58,8 +62,21 @@ layers/<domain>/app/
 │       └── mock/           # Mock adapter data & fixtures
 │           ├── mock-<name>.data.ts
 │           └── <util>.util.ts
-└── factories/              # Service instantiation (singleton pattern)
-    └── <name>-service.factory.ts
+├── factories/              # Service instantiation (singleton pattern)
+│   └── <name>-service.factory.ts
+├── components/             # Vue components
+│   └── <ComponentName>/
+│       ├── <ComponentName>.vue
+│       ├── <ComponentName>.module.css
+│       └── images/         # Component-local static assets
+├── composables/            # Vue composables
+│   └── use-<name>.ts
+├── stores/                 # Pinia stores
+│   └── <name>.store.ts
+├── utils/                  # Pure utility functions
+│   └── <name>.util.ts
+└── pages/                  # Nuxt pages (auto-routed)
+    └── <name>.vue
 ```
 
 ### Conventions
@@ -70,14 +87,9 @@ layers/<domain>/app/
 - **Factories** use a static `create()` method returning a singleton. Currently all factories return mock adapters.
 - **Mock data** files export const arrays. Utility functions for generating random mock data go in `mock/` with a `.util.ts` suffix.
 - **Cross-layer imports** are allowed from DTOs (e.g. `catalog.dto.ts` imports from both `regions.dto.ts` and `subscription-plans.dto.ts`). Adapters may import mock data from other layers.
+- **Composables** named `use-<name>.ts`. `use-<name>-fetch.ts` for raw data fetching, `use-<name>-data.ts` for fetch+store caching, `use-<name>-view.ts` for view-state composition.
+- **Utils** are pure functions with no framework dependencies, named `<name>.util.ts`.
 
-### Current Layers
-
-| Layer | Purpose | Ports | Adapters |
-|---|---|---|---|
-| `plans` | Subscription plan types & plans | `IPlanTypesService`, `ISubscriptionPlansService` | Mock adapters |
-| `regions` | Geographic regions | `IRegionsService` | Mock adapter |
-| `catalog` | Cross-domain composition | None yet | None yet |
 
 ### Cross-layer Dependencies
 
@@ -85,6 +97,7 @@ layers/<domain>/app/
 catalog.dto → regions.dto, plan-types.dto, subscription-plans.dto
 subscription-plans.dto → regions.dto (by ID), plan-types.dto
 mock-subscription-plans.data → mock-regions.data, mock-plan-types.data
+catalog-service-mock.adapter → regions, plans services (injected via constructor)
 ```
 
 ## Important Files
@@ -92,4 +105,4 @@ mock-subscription-plans.data → mock-regions.data, mock-plan-types.data
 - `nuxt.config.ts` — Nuxt configuration, layers registered via `extends`
 - `biome.json` — Linter/formatter config
 - `tsconfig.json` — Root TypeScript config (references `.nuxt/` configs)
-- `app/app.vue` — App entry point (currently default Nuxt welcome)
+- `app/app.vue` — App entry point (UiProvider + NuxtPage)
