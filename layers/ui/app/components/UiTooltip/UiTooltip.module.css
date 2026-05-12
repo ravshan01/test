@@ -1,4 +1,7 @@
 .trigger {
+	display: inline-flex;
+	padding: 0;
+	line-height: 0;
 }
 
 .content {
