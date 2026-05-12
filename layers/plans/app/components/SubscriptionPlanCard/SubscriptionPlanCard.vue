@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type {IPlanTypeDTO} from "#layers/plans/app/dto/plan-types.dto";
 import type {ISubscriptionPlanDTO} from "#layers/plans/app/dto/subscription-plans.dto";
+import icon from "./images/default-plan-icon.svg"
 import styles from './SubscriptionPlanCard.module.css'
 
 export interface ISubscriptionPlanCardProps {
@@ -28,7 +29,7 @@ const formattedDuration = computed(
       Выбрано
     </div>
 
-    <img :class="styles.icon" src="/default-plan-icon.svg" alt="icon" />
+    <img :class="styles.icon" :src="icon" alt="icon" />
 
     <div :class="styles.content">
       <div :class="styles.info">
