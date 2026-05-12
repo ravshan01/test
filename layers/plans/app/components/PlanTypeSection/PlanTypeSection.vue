@@ -18,6 +18,10 @@ const emits = defineEmits<{
 }>()
 
 const title = computed(() => `${props.planType.name} (${props.planType.code})`);
+const info =
+  props.planType.accountsCount > 1
+    ? `В подписку может входить до ${props.planType.accountsCount} аккаунтов.`
+    : null
 </script>
 
 <template>
@@ -25,6 +29,10 @@ const title = computed(() => `${props.planType.name} (${props.planType.code})`);
     <div :class="styles.header">
       <p :class="styles.title">{{title}}</p>
       <UiTooltip :content="planType.description" />
+    </div>
+
+    <div v-if="info" :class="styles.info">
+      {{info}}
     </div>
 
     <div :class="styles.body">
