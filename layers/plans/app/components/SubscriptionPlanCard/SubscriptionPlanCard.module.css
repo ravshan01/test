@@ -34,9 +34,8 @@
 		display: none;
 		position: absolute;
 		inset: 0;
-		background-color: #00000066;
+		background-color: #00000055;
 		border-radius: inherit;
-		/*z-index: 2;*/
 	}
 }
 .root_selected {
