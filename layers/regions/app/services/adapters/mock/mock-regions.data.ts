@@ -1,6 +1,6 @@
 import { simpleFaker } from "@faker-js/faker";
 import type { IRegionDTO } from "#layers/regions/app/dto/regions.dto";
-import icon from "./default-flag.svg";
+import icon from "./mock-default-flag.svg";
 
 export const MOCK_REGIONS = [
 	{
