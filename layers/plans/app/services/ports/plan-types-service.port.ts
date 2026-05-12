@@ -1,4 +1,4 @@
-import type { IPlanTypeDTO } from "~/layers/plans/dto/plan-types.dto";
+import type { IPlanTypeDTO } from "../../dto/plan-types.dto";
 
 export interface IPlanTypesService {
   find(): Promise<IPlanTypeDTO[]>;
