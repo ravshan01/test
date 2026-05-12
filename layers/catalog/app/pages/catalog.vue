@@ -1,8 +1,12 @@
 <script setup lang="ts">
 import {useCatalogView} from "#layers/catalog/app/composables/use-catalog-view";
-import RegionsGroup from "#layers/regions/app/components/RegionsGroup/RegionsGroup.vue";
 
-const {data, selectedRegionID} = useCatalogView()
+const {
+  data,
+  subscriptionPlansByRegionsAndPlanTypes,
+  selectedSubscriptionPlanIDs,
+  selectedRegionID
+} = useCatalogView()
 </script>
 
 
@@ -13,7 +17,15 @@ const {data, selectedRegionID} = useCatalogView()
         <RegionsGroup :regions="data.regions" v-model:selectedRegionID="selectedRegionID" />
       </div>
 
-      <div class="content"></div>
+      <div class="content">
+        <PlanTypeSection
+          v-for="planType in data.planTypes"
+          :key="planType.id"
+          :planType="planType"
+          :subscriptions="subscriptionPlansByRegionsAndPlanTypes[selectedRegionID]![planType.id]!"
+          :selectedIDs="selectedSubscriptionPlanIDs"
+        />
+      </div>
     </template>
   </div>
 </template>
@@ -24,10 +36,16 @@ const {data, selectedRegionID} = useCatalogView()
   flex-direction: column;
   align-items: center;
   padding: var(--padding-xl);
-  gap: 28px;
+  gap: var(--gap-xxl);
 }
 .header, .content {
   width: 100%;
   max-width: 722px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xxl);
 }
 </style>

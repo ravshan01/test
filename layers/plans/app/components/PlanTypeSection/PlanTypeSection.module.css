@@ -1,0 +1,15 @@
+.root {
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+}
+
+.header {
+	display: flex;
+	align-items: center;
+	gap: var(--gap-xs);
+}
+
+.title {
+	font-size: 22px;
+}
