@@ -1,3 +1,6 @@
+.trigger {
+}
+
 .content {
 	background-color: var(--surface-bg-color-100);
 	color: var(--text-secondary-color);
@@ -15,13 +18,9 @@
 }
 
 .icon {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	width: 20px;
-	height: 20px;
-	background-color: #ffffff66;
-	color: var(--layout-bg-color);
+	width: 25px;
+	height: 25px;
+	color: #ffffff66;
 
 	font-size: var(--font-size-sm);
 	font-weight: bold;
