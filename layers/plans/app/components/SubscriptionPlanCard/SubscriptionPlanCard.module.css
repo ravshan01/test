@@ -1,0 +1,53 @@
+.root {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+  justify-content: space-between;
+  /*width: 170px;*/
+  height: 130px;
+  padding: var(--padding) var(--padding) 14px;
+
+  color: var(--text-alternate-color);
+	cursor: pointer;
+	transition:
+		transform 0.2s ease,
+		ring 0.2s ease;
+	border: 2px solid transparent;
+  border-radius: 28px;
+
+	&:hover {
+		transform: translateY(-4px);
+	}
+}
+.root_selected {
+	border-color: #22c55e; /* Зеленая рамка */
+}
+
+.icon {
+	width: 30px;
+	height: 30px;
+	/*margin-bottom: 24px;*/
+}
+
+.info {
+	font-size: 13px;
+	opacity: 0.7;
+	margin-bottom: 4px;
+}
+.price {
+	font-size: 20px;
+	font-weight: 700;
+	font-family: "Inter Display", sans-serif;
+}
+
+.badge {
+	position: absolute;
+	top: 12px;
+	right: 12px;
+	background: #22c55e;
+	color: white;
+	font-size: 10px;
+	padding: 4px 8px;
+	border-radius: 12px;
+	font-weight: 600;
+}
