@@ -2,52 +2,79 @@
 	position: relative;
 	display: flex;
 	flex-direction: column;
-  justify-content: space-between;
-  /*width: 170px;*/
-  height: 130px;
-  padding: var(--padding) var(--padding) 14px;
+	justify-content: space-between;
+	height: 130px;
+	/*
+	  Справа уменьшил отступ,
+	  иначе с склонением не влезает на одну строку - "Individual * 6 месяцев",
+	  в макете было просто "месяц"
+	*/
+	padding: var(--padding) calc(var(--padding) - 1em) 14px var(--padding);
 
-  color: var(--text-alternate-color);
+	color: var(--text-alternate-color);
 	cursor: pointer;
 	transition:
 		transform 0.2s ease,
 		ring 0.2s ease;
-	border: 2px solid transparent;
-  border-radius: 28px;
+	border-radius: 28px;
 
 	&:hover {
 		transform: translateY(-4px);
 	}
+	&::before {
+		content: "";
+		display: none;
+		position: absolute;
+		inset: -3px;
+		border: 2px solid var(--success-color);
+		border-radius: inherit;
+	}
+	&::after {
+		content: "";
+		display: none;
+		position: absolute;
+		inset: 0;
+		background-color: #00000066;
+		border-radius: inherit;
+		/*z-index: 2;*/
+	}
 }
 .root_selected {
-	border-color: #22c55e; /* Зеленая рамка */
+	&::before,
+	&::after {
+		display: block;
+	}
 }
 
 .icon {
 	width: 30px;
 	height: 30px;
-	/*margin-bottom: 24px;*/
 }
 
+.content {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+}
 .info {
-	font-size: 13px;
 	opacity: 0.7;
-	margin-bottom: 4px;
 }
 .price {
-	font-size: 20px;
+	font-size: var(--font-size-xl);
 	font-weight: 700;
 	font-family: "Inter Display", sans-serif;
 }
 
 .badge {
 	position: absolute;
-	top: 12px;
-	right: 12px;
-	background: #22c55e;
-	color: white;
-	font-size: 10px;
-	padding: 4px 8px;
-	border-radius: 12px;
-	font-weight: 600;
+	top: var(--padding);
+	right: var(--padding);
+	padding: 6px;
+
+	background: var(--success-color);
+	color: #ffffff;
+	font-size: var(--font-size-sm);
+	border-radius: 8px;
+	font-weight: 500;
+	z-index: 2;
 }
