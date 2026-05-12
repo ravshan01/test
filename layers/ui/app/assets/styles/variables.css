@@ -12,4 +12,9 @@
 	--font-size: 14px;
 	--font-size-lg: 16px;
 	--font-size-xl: 18px;
+
+	--gap-sm: 12px;
+	--gap: 16px;
+	--gap-lg: 20px;
+	--gap-xl: 24px;
 }
