@@ -3,7 +3,9 @@ import { groupSubscriptionPlansByRegionsAndPlanTypes } from "#layers/catalog/app
 
 export function useCatalogView() {
 	const { data } = useCatalogData();
+
 	const store = useCatalogStore();
+	const { selectedSubscriptionPlanIDs } = storeToRefs(store);
 
 	watchEffect(() => {
 		if (
@@ -34,6 +36,7 @@ export function useCatalogView() {
 		data,
 		subscriptionPlansByRegionsAndPlanTypes,
 		selectedRegionID,
-		selectedSubscriptionPlanIDs: store.selectedSubscriptionPlanIDs,
+		selectedSubscriptionPlanIDs,
+		toggleSelectSubscriptionPlan: store.toggleSelectSubscriptionPlan,
 	};
 }
