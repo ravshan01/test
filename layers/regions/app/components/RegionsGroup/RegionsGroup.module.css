@@ -1,6 +1,6 @@
 .root {
 	display: flex;
-	gap: var(--gap-sm);
+	gap: var(--gap-xs);
 }
 
 .item {
