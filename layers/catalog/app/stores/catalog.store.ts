@@ -1,4 +1,5 @@
 import type { ICatalogDTO } from "~~/layers/catalog/app/dto/catalog.dto";
+import type { IPlanTypeDTO } from "~~/layers/plans/app/dto/plan-types.dto";
 import type { ISubscriptionPlanDTO } from "~~/layers/plans/app/dto/subscription-plans.dto";
 import type { IRegionDTO } from "~~/layers/regions/app/dto/regions.dto";
 
@@ -10,14 +11,20 @@ export const useCatalogStore = defineStore("catalog", {
 	}),
 
 	getters: {
-		subscriptionPlansByRegionId: ({ data }) => {
-			const result: Record<IRegionDTO["id"], ISubscriptionPlanDTO[]> = {};
+		subscriptionPlansByRegionsAndPlanTypes: ({ data }) => {
+			const result: Record<IRegionDTO["id"], Record<IPlanTypeDTO["id"], ISubscriptionPlanDTO[]>> = {};
+
 			data?.regions.forEach((region) => {
-				result[region.id] =
-					data?.subscriptionPlans.filter((el) =>
-						el.regionIDs.includes(region.id),
-					) ?? [];
+				result[region.id] = {};
+
+				data.planTypes.forEach((planType) => {
+					result[region.id]![planType.id] =
+						data.subscriptionPlans.filter(
+							(el) => el.regionIDs.includes(region.id) && el.typeID === planType.id,
+						) ?? [];
+				});
 			});
+
 			return result;
 		},
 	},
