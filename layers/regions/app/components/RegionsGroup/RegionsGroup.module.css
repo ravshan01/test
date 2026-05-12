@@ -27,6 +27,11 @@
 	color: var(--text-alternate-color);
 }
 
+.item img {
+	width: 20px;
+	height: 14px;
+}
+
 .item span {
 	overflow: hidden;
 	text-overflow: ellipsis;
