@@ -41,19 +41,25 @@ function createMockSubscriptionPlan(options: {
 	months: number;
 	color: string;
 }): ISubscriptionPlanDTO {
-	const { planTypeCode, months } = options;
+	const { planTypeCode, months, color } = options;
+
 	const DEFAULT_PRICE = 263;
 	const DEFAULT_CURRENCY = "₽";
 
+  const requiredRegionID = MOCK_REGIONS[0]!.id
+  const mockRegionsWithoutRequired = MOCK_REGIONS.slice(1)
+  const regionIds = [requiredRegionID, ...simpleFaker.helpers.arrayElements(mockRegionsWithoutRequired).map((r) => r.id),]
+
+
 	return {
 		id: simpleFaker.string.uuid(),
-		regionIDs: simpleFaker.helpers.arrayElements(MOCK_REGIONS).map((r) => r.id),
+		regionIDs: regionIds,
 		// biome-ignore lint/style/noNonNullAssertion: _
 		typeID: MOCK_PLAN_TYPES.find((el) => el.code === planTypeCode)!.id,
 		durationMonths: months,
 		price: DEFAULT_PRICE,
 		currency: DEFAULT_CURRENCY,
-		color: "#FFD2D7",
+		color: color,
 		isActive: true,
 	};
 }
