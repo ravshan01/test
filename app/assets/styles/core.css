@@ -1,0 +1,10 @@
+@import "~~/layers/ui/app/assets/styles/core.css";
+
+html {
+	background-color: var(--layout-bg-color);
+	color: var(--text-base-color);
+
+	font-family: var(--font-family);
+	font-size: var(--font-size);
+	font-weight: var(--font-weight);
+}

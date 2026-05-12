@@ -2,6 +2,12 @@
 export default defineNuxtConfig({
 	compatibilityDate: "2025-07-15",
 	devtools: { enabled: true },
-	extends: ["./app/layers/"],
+	extends: [
+		"./layers/ui",
+		"./layers/regions",
+		"./layers/plans",
+		"./layers/catalog",
+	],
 	modules: ["@pinia/nuxt"],
+	css: ["~/assets/styles/core.css"],
 });

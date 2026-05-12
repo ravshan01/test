@@ -1,0 +1,15 @@
+:root {
+	--layout-bg-color: #1d1d1d;
+
+	--text-base-color: #ffffff;
+	--text-alternate-color: #000000;
+	--text-success-color: #00c245;
+
+	--font-family: "Inter Display", sans-serif;
+	--font-weight: 500;
+
+	--font-size-sm: 12px;
+	--font-size: 14px;
+	--font-size-lg: 16px;
+	--font-size-xl: 18px;
+}
