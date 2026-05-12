@@ -13,6 +13,9 @@ export interface IPlanTypesSectionProps {
 }
 
 const props = defineProps<IPlanTypesSectionProps>();
+const emits = defineEmits<{
+  toggleSelect: [id: string]
+}>()
 
 const title = computed(() => `${props.planType.name} (${props.planType.code})`);
 </script>
@@ -25,7 +28,14 @@ const title = computed(() => `${props.planType.name} (${props.planType.code})`);
     </div>
 
     <div :class="styles.body">
-      SUBSCRIPTION_PLANS
+      <SubscriptionPlanCard
+        v-for="el in subscriptions"
+        :key="el.id"
+        :data="el"
+        :planType="planType"
+        :isSelected="selectedIDs.includes(el.id)"
+        @click="emits('toggleSelect', el.id)"
+      />
     </div>
   </div>
 </template>
