@@ -5,7 +5,7 @@ import type { IRegionDTO } from "~~/layers/regions/app/dto/regions.dto";
 export const useCatalogStore = defineStore("catalog", {
 	state: () => ({
 		data: null as ICatalogDTO | null,
-		selectedRegionID: null as string | null,
+		selectedRegionID: undefined as string | undefined,
 		selectedSubscriptionPlanIDs: [] as string[],
 	}),
 
