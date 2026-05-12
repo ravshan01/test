@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import type {IPlanTypeDTO} from "#layers/plans/app/dto/plan-types.dto";
 import type {ISubscriptionPlanDTO} from "#layers/plans/app/dto/subscription-plans.dto";
 import styles from './SubscriptionPlanCard.module.css'
-import type {IPlanTypeDTO} from "#layers/plans/app/dto/plan-types.dto";
 
 export interface ISubscriptionPlanCardProps {
   data: ISubscriptionPlanDTO
