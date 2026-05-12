@@ -1,35 +1,35 @@
-import { simpleFaker } from "@faker-js/faker";
-import type { IRegionDTO } from "../../../dto/regions.dto";
+import {simpleFaker} from "@faker-js/faker";
+import type {IRegionDTO} from "#layers/regions/app/dto/regions.dto";
 
-export const MOCK_REGIONS: IRegionDTO[] = [
+export const MOCK_REGIONS = [
 	{
 		id: simpleFaker.string.uuid(),
 		name: "Египет",
-		code: "EG",
+		code: "EG" as const,
 		flag: "/default-flag.svg",
 	},
 	{
 		id: simpleFaker.string.uuid(),
 		name: "Индия",
-		code: "IN",
+		code: "IN" as const,
 		flag: "/default-flag.svg",
 	},
 	{
 		id: simpleFaker.string.uuid(),
 		name: "Нигерия",
-		code: "NG",
+		code: "NG" as const,
 		flag: "/default-flag.svg",
 	},
 	{
 		id: simpleFaker.string.uuid(),
 		name: "Нидерланды",
-		code: "NL",
+		code: "NL" as const,
 		flag: "/default-flag.svg",
 	},
 	{
 		id: simpleFaker.string.uuid(),
 		name: "Бразилия",
-		code: "BR",
+		code: "BR" as const,
 		flag: "/default-flag.svg",
 	},
-];
+] satisfies IRegionDTO[]
