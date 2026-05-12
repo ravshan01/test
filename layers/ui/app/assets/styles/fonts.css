@@ -18,7 +18,7 @@
 
 @font-face {
 	font-family: "Inter Display";
-	src: url("../fonts/inter-display/ttf/InterDisplay-SemiBold.ttf")
+	src: url("/fonts/inter-display/ttf/InterDisplay-SemiBold.ttf")
 		format("truetype");
 	font-weight: 600;
 	font-style: normal;
@@ -27,8 +27,7 @@
 
 @font-face {
 	font-family: "Inter Display";
-	src: url("../fonts/inter-display/ttf/InterDisplay-Bold.ttf")
-		format("truetype");
+	src: url("/fonts/inter-display/ttf/InterDisplay-Bold.ttf") format("truetype");
 	font-weight: 700;
 	font-style: normal;
 	font-display: swap;
