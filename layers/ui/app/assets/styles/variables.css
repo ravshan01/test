@@ -1,5 +1,6 @@
 :root {
 	--layout-bg-color: #1d1d1d;
+  --surface-bg-color-100: #292929;
 
 	--text-base-color: #ffffff;
 	--text-alternate-color: #000000;
@@ -13,11 +14,13 @@
 	--font-size-lg: 16px;
 	--font-size-xl: 18px;
 
+  --gap-xs: 8px;
 	--gap-sm: 12px;
 	--gap: 16px;
 	--gap-lg: 20px;
 	--gap-xl: 24px;
 
+  --padding-xs: 8px;
 	--padding-sm: 12px;
 	--padding: 16px;
 	--padding-lg: 20px;
