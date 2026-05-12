@@ -5,7 +5,8 @@ const {
   data,
   subscriptionPlansByRegionsAndPlanTypes,
   selectedSubscriptionPlanIDs,
-  selectedRegionID
+  selectedRegionID,
+  toggleSelectSubscriptionPlan
 } = useCatalogView()
 </script>
 
@@ -24,6 +25,7 @@ const {
           :planType="planType"
           :subscriptions="subscriptionPlansByRegionsAndPlanTypes[selectedRegionID]![planType.id]!"
           :selectedIDs="selectedSubscriptionPlanIDs"
+          @toggleSelect="toggleSelectSubscriptionPlan"
         />
       </div>
     </template>
