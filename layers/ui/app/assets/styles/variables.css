@@ -17,4 +17,9 @@
 	--gap: 16px;
 	--gap-lg: 20px;
 	--gap-xl: 24px;
+
+	--padding-sm: 12px;
+	--padding: 16px;
+	--padding-lg: 20px;
+	--padding-xl: 24px;
 }
