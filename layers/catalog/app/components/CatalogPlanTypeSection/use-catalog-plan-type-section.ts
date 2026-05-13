@@ -3,17 +3,17 @@ import type { IRegionDTO } from "#layers/regions/app/dto/regions.dto";
 import { getSubscriptionPlanGroupsByRegionAndPlanType } from "./utils/get-subscription-plan-groups-by-region-and-plan-type.util";
 
 export function useCatalogPlanTypeSection(props: ICatalogPlanTypeSectionProps) {
-	const title = computed(
-		() => `${props.planType.name} (${props.planType.code})`,
-	);
+	const { planType, selectedRegionID, catalog } = props;
+
+	const title = computed(() => `${planType.name} (${planType.code})`);
 
 	const subscriptionPlanGroups = computed(() =>
 		getSubscriptionPlanGroupsByRegionAndPlanType({
-			regionID: props.selectedRegionID,
-			planTypeID: props.planType.id,
-			regions: props.catalog.regions,
-			planGroups: props.catalog.planGroups,
-			subscriptionPlans: props.catalog.subscriptionPlans,
+			regionID: selectedRegionID,
+			planTypeID: planType.id,
+			regions: catalog.regions,
+			planGroups: catalog.planGroups,
+			subscriptionPlans: catalog.subscriptionPlans,
 		}),
 	);
 
@@ -22,9 +22,9 @@ export function useCatalogPlanTypeSection(props: ICatalogPlanTypeSectionProps) {
 			subscriptionPlanGroups.value.map((group) => {
 				const text: string[] = [];
 
-				if (props.planType.accountsCount > 1)
+				if (planType.accountsCount > 1)
 					text.push(
-						`В подписку может входить до ${props.planType.accountsCount} аккаунтов.`,
+						`В подписку может входить до ${planType.accountsCount} аккаунтов.`,
 					);
 				if (group.regions.length > 0)
 					text.push(`Регион подписки: ${formatRegionNames(group.regions)}.`);
