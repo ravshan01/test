@@ -9,10 +9,19 @@ const modes = [
 	{ value: "subscriptions", label: "Подписки" },
 	{ value: "giftCards", label: "Подарочные карты" },
 ] satisfies { value: CatalogMode; label: string }[];
+
+const selectedModeIndex = computed(() =>
+	modes.findIndex((mode) => mode.value === selectedMode.value),
+);
 </script>
 
 <template>
   <RadioGroupRoot v-model="selectedMode" :class="styles.root">
+    <div
+      :class="styles.indicator"
+      :style="{ transform: `translateX(${selectedModeIndex * 100}%)` }"
+    />
+
     <RadioGroupItem
       v-for="mode in modes"
       :key="mode.value"

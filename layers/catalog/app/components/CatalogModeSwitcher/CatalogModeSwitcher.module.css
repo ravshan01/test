@@ -1,15 +1,37 @@
 .root {
+	--cms-padding: 4px;
+
+	position: relative;
 	display: grid;
 	grid-template-columns: repeat(2, minmax(0, 1fr));
 	width: 100%;
 	height: 50px;
-	padding: 4px;
+	padding: var(--cms-padding);
 	background-color: #252525;
 	border-radius: 18px;
+	overflow: hidden;
+}
+
+.indicator {
+	position: absolute;
+	top: var(--cms-padding);
+	left: var(--cms-padding);
+	width: calc((100% - var(--cms-padding) * 2) / 2);
+	height: calc(100% - var(--cms-padding) * 2);
+
+	background-color: #3f3f3f;
+	border-radius: 14px;
+	box-shadow:
+		inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+		0 2px 8px rgba(0, 0, 0, 0.28);
+	transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+	will-change: transform;
 }
 
 .item {
 	display: flex;
+	position: relative;
+	z-index: 1;
 	align-items: center;
 	justify-content: center;
 	min-width: 0;
@@ -20,10 +42,7 @@
 	font-weight: 600;
 	border-radius: 14px;
 	cursor: pointer;
-	transition:
-		background-color 0.2s,
-		color 0.2s,
-		box-shadow 0.2s;
+	transition: color 0.2s;
 }
 
 .item:hover {
@@ -31,9 +50,5 @@
 }
 
 .item[data-state="checked"] {
-	background-color: #3f3f3f;
-	box-shadow:
-		inset 0 0 0 1px rgba(255, 255, 255, 0.08),
-		0 2px 8px rgba(0, 0, 0, 0.28);
 	color: var(--text-base-color);
 }
