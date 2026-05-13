@@ -1,6 +1,15 @@
-import type { ICatalogPlanTypeSectionProps } from "#layers/catalog/app/components/CatalogPlanTypeSection/CatalogPlanTypeSection.vue";
+import type { ICatalogDTO } from "#layers/catalog/app/dto/catalog.dto";
+import type { IPlanTypeDTO } from "#layers/plans/app/dto/plan-types.dto";
 import type { IRegionDTO } from "#layers/regions/app/dto/regions.dto";
 import { getSubscriptionPlanGroupsByRegionAndPlanType } from "./utils/get-subscription-plan-groups-by-region-and-plan-type.util";
+
+export interface ICatalogPlanTypeSectionProps {
+	catalog: ICatalogDTO;
+	planType: IPlanTypeDTO;
+	selectedRegionID: IRegionDTO["id"];
+	/** selected subscriptionPlans */
+	selectedIDs: string[];
+}
 
 export function useCatalogPlanTypeSection(props: ICatalogPlanTypeSectionProps) {
 	const title = computed(

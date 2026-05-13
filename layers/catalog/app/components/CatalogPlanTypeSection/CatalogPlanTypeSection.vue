@@ -1,20 +1,7 @@
 <script setup lang="ts">
-import type {ICatalogDTO} from "#layers/catalog/app/dto/catalog.dto";
-import type {IPlanTypeDTO} from "#layers/plans/app/dto/plan-types.dto";
-import type {IRegionDTO} from "#layers/regions/app/dto/regions.dto";
 import UiTooltip from "#layers/ui/app/components/UiTooltip/UiTooltip.vue";
 import styles from "./CatalogPlanTypeSection.module.css";
-import {
-	useCatalogPlanTypeSection,
-} from "./use-catalog-plan-type-section";
-
-export interface ICatalogPlanTypeSectionProps {
-  catalog: ICatalogDTO;
-  planType: IPlanTypeDTO;
-  selectedRegionID: IRegionDTO["id"];
-  /** selected subscriptionPlans */
-  selectedIDs: string[];
-}
+import {type ICatalogPlanTypeSectionProps, useCatalogPlanTypeSection,} from "./use-catalog-plan-type-section";
 
 const props = defineProps<ICatalogPlanTypeSectionProps>();
 const emits = defineEmits<{
