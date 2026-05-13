@@ -32,7 +32,7 @@ function createMockPlanGroup(options: {
 	const regionIDs = [
 		requiredRegionID,
 		...simpleFaker.helpers
-			.arrayElements(mockRegionsWithoutRequired)
+			.arrayElements(mockRegionsWithoutRequired, { min: 0, max: 2 })
 			.map((region) => region.id),
 	];
 
