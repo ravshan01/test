@@ -19,8 +19,9 @@ const { title, subscriptionPlanGroups, planGroupInfoByID } =
       <UiTooltip :content="planType.description" />
     </div>
 
-    <!--  Группа всегда одна  -->
-    <template v-for="group in subscriptionPlanGroups" :key="group.planGroup.id">
+    <CatalogPlanTypeSectionEmptyState v-if="subscriptionPlanGroups.length === 0" />
+
+    <template v-else v-for="group in subscriptionPlanGroups" :key="group.planGroup.id">
       <div v-if="planGroupInfoByID[group.planGroup.id]" :class="styles.info">
         {{ planGroupInfoByID[group.planGroup.id] }}
       </div>

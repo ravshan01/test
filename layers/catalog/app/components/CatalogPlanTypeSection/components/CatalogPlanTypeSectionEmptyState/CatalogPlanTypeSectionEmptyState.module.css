@@ -1,0 +1,28 @@
+.root {
+	display: flex;
+	align-items: center;
+	gap: var(--gap-sm);
+	min-height: 76px;
+	padding: var(--padding);
+	background-color: rgba(255, 255, 255, 0.04);
+	border: 1px solid rgba(255, 255, 255, 0.06);
+	border-radius: 18px;
+}
+
+.icon {
+	display: flex;
+	flex-shrink: 0;
+	align-items: center;
+	justify-content: center;
+	width: 34px;
+	height: 34px;
+	background-color: rgba(255, 255, 255, 0.08);
+	color: var(--text-secondary-color);
+	font-weight: 700;
+	border-radius: 50%;
+}
+
+.text {
+	color: var(--text-secondary-color);
+	line-height: 1.35;
+}
