@@ -11,10 +11,10 @@
 }
 
 .info {
-  padding: var(--gap-sm) var(--gap);
-  color: var(--text-success-color);
-  border-radius: 50px;
-  background-color: rgba(0, 177, 63, 0.04);
+	padding: var(--gap-sm) var(--gap);
+	color: var(--text-success-color);
+	border-radius: 50px;
+	background-color: rgba(0, 177, 63, 0.04);
 }
 
 .title {

@@ -1,49 +1,46 @@
 <script setup lang="ts">
-import type {IPlanTypeDTO} from "#layers/plans/app/dto/plan-types.dto";
-import type {ISubscriptionPlanDTO} from "#layers/plans/app/dto/subscription-plans.dto";
 import UiTooltip from "#layers/ui/app/components/UiTooltip/UiTooltip.vue";
+import styles from "./PlanTypeSection.module.css"
+import { type IPlanTypesSectionProps, usePlanTypeSection } from "./use-plan-type-section";
 
-import styles from './PlanTypeSection.module.css'
-
-export interface IPlanTypesSectionProps {
-  planType: IPlanTypeDTO
-  subscriptions: ISubscriptionPlanDTO[]
-  /** selected subscriptionPlans */
-  selectedIDs: string[]
-}
-
-const props = defineProps<IPlanTypesSectionProps>();
+const props = defineProps({
+	planType: { type: Object, required: true },
+	selectedRegionID: { type: String, required: true },
+	regions: { type: Array, required: true },
+	planGroups: { type: Array, required: true },
+	subscriptionPlans: { type: Array, required: true },
+	selectedIDs: { type: Array, required: true },
+})
 const emits = defineEmits<{
-  toggleSelect: [id: string]
+	toggleSelect: [id: string]
 }>()
 
-const title = computed(() => `${props.planType.name} (${props.planType.code})`);
-const info =
-  props.planType.accountsCount > 1
-    ? `В подписку может входить до ${props.planType.accountsCount} аккаунтов.`
-    : null
+const { title, subscriptionPlanGroups, getPlanGroupInfo } =
+	usePlanTypeSection(props as unknown as IPlanTypesSectionProps)
 </script>
 
 <template>
   <div :class="styles.root">
     <div :class="styles.header">
-      <p :class="styles.title">{{title}}</p>
+      <p :class="styles.title">{{ title }}</p>
       <UiTooltip :content="planType.description" />
     </div>
 
-    <div v-if="info" :class="styles.info">
-      {{info}}
-    </div>
+    <template v-for="group in subscriptionPlanGroups" :key="group.planGroup.id">
+      <div v-if="getPlanGroupInfo(group)" :class="styles.info">
+        {{ getPlanGroupInfo(group) }}
+      </div>
 
-    <div :class="styles.body">
-      <SubscriptionPlanCard
-        v-for="el in subscriptions"
-        :key="el.id"
-        :data="el"
-        :planType="planType"
-        :isSelected="selectedIDs.includes(el.id)"
-        @click="emits('toggleSelect', el.id)"
-      />
-    </div>
+      <div :class="styles.body">
+        <SubscriptionPlanCard
+          v-for="el in group.subscriptionPlans"
+          :key="el.id"
+          :data="el"
+          :planType="planType"
+          :isSelected="selectedIDs.includes(el.id)"
+          @click="emits('toggleSelect', el.id)"
+        />
+      </div>
+    </template>
   </div>
 </template>
