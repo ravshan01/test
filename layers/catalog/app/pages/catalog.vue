@@ -3,7 +3,6 @@ import {useCatalogView} from "#layers/catalog/app/composables/use-catalog-view";
 
 const {
   data,
-  subscriptionPlansByRegionsAndPlanTypes,
   selectedSubscriptionPlanIDs,
   selectedRegionID,
   toggleSelectSubscriptionPlan
@@ -19,11 +18,12 @@ const {
       </div>
 
       <div class="content">
-        <PlanTypeSection
+        <CatalogPlanTypeSection
           v-for="planType in data.planTypes"
           :key="planType.id"
+          :catalog="data"
           :planType="planType"
-          :subscriptions="subscriptionPlansByRegionsAndPlanTypes[selectedRegionID]![planType.id]!"
+          :selectedRegionID="selectedRegionID"
           :selectedIDs="selectedSubscriptionPlanIDs"
           @toggleSelect="toggleSelectSubscriptionPlan"
         />
