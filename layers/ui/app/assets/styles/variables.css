@@ -1,9 +1,9 @@
 :root {
-  --success-color: #00c245;
+	--success-color: #00c245;
 
 	--layout-bg-color: #1d1d1d;
 	--surface-bg-color-100: #292929;
-  --surface-success-bg-color: var(--success-color);
+	--surface-success-bg-color: var(--success-color);
 
 	--text-base-color: #ffffff;
 	--text-secondary-color: #eaeaea;
