@@ -1,61 +1,56 @@
 import { simpleFaker } from "@faker-js/faker";
-import { MOCK_REGIONS } from "~~/layers/regions/app/services/adapters/mock/mock-regions.data";
-import type { ISubscriptionPlanDTO } from "../../../dto/subscription-plans.dto";
-import { MOCK_PLAN_TYPES } from "./mock-plan-types.data";
+import type { IPlanGroupDTO } from "~~/layers/plans/app/dto/plan-groups.dto";
+import type { ISubscriptionPlanDTO } from "~~/layers/plans/app/dto/subscription-plans.dto";
+import {
+	MOCK_PLAN_GROUPS_BY_TYPE_CODE,
+	type MockPlanTypeCode,
+} from "./mock-plan-groups.data";
 
-type MockPlanTypeCode = (typeof MOCK_PLAN_TYPES)[number]["code"];
+const SUBSCRIPTION_PLAN_SEEDS_BY_TYPE_CODE = {
+	Individual: {
+		months: [1, 3, 6, 12],
+		color: "#FFD2D7",
+	},
+	DUO: {
+		months: [1, 3, 12],
+		color: "#FFC862",
+	},
+	Family: {
+		months: [6],
+		color: "#A5BBD1",
+	},
+	Platinum: {
+		months: [6],
+		color: "#C4B1D4",
+	},
+} satisfies Record<MockPlanTypeCode, { months: number[]; color: string }>;
 
-export const MOCK_SUBSCRIPTION_PLANS_BY_TYPE_CODE = {
-	Individual: [1, 3, 6, 12].map((m) =>
+export const MOCK_SUBSCRIPTION_PLANS = Object.entries(
+	SUBSCRIPTION_PLAN_SEEDS_BY_TYPE_CODE,
+).flatMap(([planTypeCode, seed]) =>
+	seed.months.map((month) =>
 		createMockSubscriptionPlan({
-			planTypeCode: "Individual",
-			months: m,
-			color: "#FFD2D7",
+			groupID:
+				MOCK_PLAN_GROUPS_BY_TYPE_CODE[planTypeCode as MockPlanTypeCode].id,
+			months: month,
+			color: seed.color,
 		}),
 	),
-	DUO: [1, 3, 12].map((m) =>
-		createMockSubscriptionPlan({
-			planTypeCode: "DUO",
-			months: m,
-			color: "#FFC862",
-		}),
-	),
-	Family: [6].map((m) =>
-		createMockSubscriptionPlan({
-			planTypeCode: "Family",
-			months: m,
-			color: "#A5BBD1",
-		}),
-	),
-	Platinum: [6].map((m) =>
-		createMockSubscriptionPlan({
-			planTypeCode: "Platinum",
-			months: m,
-			color: "#C4B1D4",
-		}),
-	),
-} satisfies Record<MockPlanTypeCode, ISubscriptionPlanDTO[]>;
+);
 
-function createMockSubscriptionPlan(options: {
-	planTypeCode: MockPlanTypeCode;
+export function createMockSubscriptionPlan(options: {
+	groupID: IPlanGroupDTO["id"];
 	months: number;
 	color: string;
 }): ISubscriptionPlanDTO {
-	const { planTypeCode, months, color } = options;
+	const { groupID, months, color } = options;
 
 	const DEFAULT_PRICE = 263;
 	const DEFAULT_CURRENCY = "₽";
 
-  const requiredRegionID = MOCK_REGIONS[0]!.id
-  const mockRegionsWithoutRequired = MOCK_REGIONS.slice(1)
-  const regionIds = [requiredRegionID, ...simpleFaker.helpers.arrayElements(mockRegionsWithoutRequired).map((r) => r.id),]
-
-
 	return {
 		id: simpleFaker.string.uuid(),
-		regionIDs: regionIds,
-		// biome-ignore lint/style/noNonNullAssertion: _
-		typeID: MOCK_PLAN_TYPES.find((el) => el.code === planTypeCode)!.id,
+		groupID,
 		durationMonths: months,
 		price: DEFAULT_PRICE,
 		currency: DEFAULT_CURRENCY,

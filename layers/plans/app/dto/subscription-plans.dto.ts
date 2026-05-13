@@ -1,10 +1,8 @@
-import type { IRegionDTO } from "~~/layers/regions/app/dto/regions.dto";
-import type { IPlanTypeDTO } from "./plan-types.dto";
+import type { IPlanGroupDTO } from "./plan-groups.dto";
 
 export interface ISubscriptionPlanDTO {
 	id: string;
-	regionIDs: IRegionDTO["id"][];
-	typeID: IPlanTypeDTO["id"];
+	groupID: IPlanGroupDTO["id"];
 	durationMonths: number;
 	price: number;
 	currency: string;

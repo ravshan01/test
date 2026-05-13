@@ -3,7 +3,7 @@ import type { IPlanGroupDTO } from "~~/layers/plans/app/dto/plan-groups.dto";
 import { MOCK_REGIONS } from "~~/layers/regions/app/services/adapters/mock/mock-regions.data";
 import { MOCK_PLAN_TYPES } from "./mock-plan-types.data";
 
-type MockPlanTypeCode = (typeof MOCK_PLAN_TYPES)[number]["code"];
+export type MockPlanTypeCode = (typeof MOCK_PLAN_TYPES)[number]["code"];
 
 export const MOCK_PLAN_GROUPS_BY_TYPE_CODE = {
 	Individual: createMockPlanGroup({
