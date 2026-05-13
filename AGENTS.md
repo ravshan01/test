@@ -2,17 +2,17 @@
 
 ## Project Overview
 
-Nuxt 4 application with TypeScript using a layered hexagonal architecture. The app currently renders a catalog page at `/catalog` with a region selector and subscription plan sections/cards. The root route `/` redirects to `/catalog`. Domain data is mock data in Russian.
+Nuxt 4 application with TypeScript using a layered hexagonal architecture. The app currently renders a catalog page at `/catalog` with a mode switcher, region selector, subscription plan sections/cards, and empty states. The root route `/` redirects to `/catalog`. Domain data is mock data in Russian.
 
 ## Tech Stack
 
 - **Runtime:** Nuxt `^4.4.4`, Vue `^3.5.33`, Vue Router `^5.0.6`
-- **Language:** TypeScript, target `ES2024`
+- **Language:** TypeScript `^6.0.3`, target `ES2024`
 - **State:** Pinia `^3.0.4` via `@pinia/nuxt`
 - **UI:** `radix-vue` headless primitives, local Vue components, CSS Modules where used
 - **Styling:** CSS custom properties, `the-new-css-reset`, Inter Display font from `public/fonts/`
 - **Linter/Formatter:** Biome `2.4.15` (no ESLint, no Prettier)
-- **Mock Data:** `@faker-js/faker` with Russian locale data
+- **Mock Data:** `@faker-js/faker` with Russian locale data. Current mock data is generated at module-load time, not per request.
 - **Package Manager:** npm (`package-lock.json` is committed)
 
 ## Commands
@@ -61,8 +61,8 @@ Current layers:
 
 - `layers/ui` — global design tokens/styles and shared UI components (`UiProvider`, `UiTooltip`, icons)
 - `layers/regions` — region DTO, service port/adapter/factory, region selector component
-- `layers/plans` — plan type and subscription plan DTOs, services, factories, plan components
-- `layers/catalog` — catalog composition service, page, composables, store, grouping utilities
+- `layers/plans` — plan type, plan group, and subscription plan DTOs, services, factories, subscription card component
+- `layers/catalog` — catalog composition service, page, mode switcher, catalog-specific plan sections, empty states, composables, store, grouping utilities
 
 Layer-local `nuxt.config.ts` files currently export empty `defineNuxtConfig({})`; root config owns modules, global CSS, route rules, and layer registration.
 
@@ -88,6 +88,9 @@ layers/<domain>/app/
 │   └── <ComponentName>/
 │       ├── <ComponentName>.vue
 │       ├── <ComponentName>.module.css
+│       ├── use-<component>.ts
+│       ├── utils/
+│       ├── components/     # Component-local subcomponents
 │       └── images/
 ├── composables/            # Vue composables
 │   └── use-<name>.ts
@@ -103,7 +106,7 @@ Not every layer contains every directory. The `ui` layer is component/style focu
 
 ## Naming Conventions
 
-- **DTOs:** Interfaces are prefixed with `I`, for example `IRegionDTO`, `IPlanTypeDTO`, `ISubscriptionPlanDTO`, `ICatalogDTO`.
+- **DTOs:** Interfaces are prefixed with `I`, for example `IRegionDTO`, `IPlanTypeDTO`, `IPlanGroupDTO`, `ISubscriptionPlanDTO`, `ICatalogDTO`.
 - **Ports:** Service interfaces are named `I<Name>Service`, for example `IRegionsService`, `IPlanTypesService`.
 - **Adapters:** Implement ports and are named `<Name>Service<Mock|Api>Adapter`.
 - **Factories:** Expose `create()` plus `getInstance()`. Existing factories cache through a static `instance` field and currently return mock adapters.
@@ -112,7 +115,8 @@ Not every layer contains every directory. The `ui` layer is component/style focu
   - `use-catalog-fetch.ts` — raw `useAsyncData` service call
   - `use-catalog-data.ts` — fetch plus Pinia cache population
   - `use-catalog-view.ts` — view-state composition for the page
-- **Utils:** Keep framework-free pure functions in `utils/` with a `.util.ts` suffix.
+- **Component hooks:** Use `use-<component>.ts` colocated with the component when view logic is specific to that component.
+- **Utils:** Keep framework-free pure functions in `utils/` with a `.util.ts` suffix. Component-specific utilities may live in a component-local `utils/` folder.
 
 ## Imports and Aliases
 
@@ -126,39 +130,11 @@ Not every layer contains every directory. The `ui` layer is component/style focu
 ## Current Cross-Layer Dependencies
 
 ```text
-catalog.dto -> regions.dto, plan-types.dto, subscription-plans.dto
-subscription-plans.dto -> regions.dto by ID, plan-types.dto by ID
-mock-subscription-plans.data -> mock-regions.data, mock-plan-types.data
-catalog-service-mock.adapter -> regions, plan types, subscription plans services injected by constructor
-catalog-service.factory -> RegionsServiceFactory, PlanTypesServiceFactory, SubscriptionPlansServiceFactory
+catalog.dto -> regions.dto, plan-types.dto, plan-groups.dto, subscription-plans.dto
+plan-groups.dto -> regions.dto by ID, plan-types.dto by ID
+subscription-plans.dto -> plan-groups.dto by ID
+mock-plan-groups.data -> mock-regions.data, mock-plan-types.data
+mock-subscription-plans.data -> mock-plan-groups.data
+catalog-service-mock.adapter -> regions, plan types, plan groups, subscription plans services injected by constructor
+catalog-service.factory -> RegionsServiceFactory, PlanTypesServiceFactory, PlanGroupsServiceFactory, SubscriptionPlansServiceFactory
 ```
-
-## State and Data Flow
-
-- `CatalogServiceMockAdapter.getAll()` loads regions, plan types, and subscription plans in parallel through injected services.
-- `useCatalogFetch()` wraps the catalog service in `useAsyncData` with key `"catalog"`.
-- `useCatalogData()` populates `useCatalogStore().data` from fetched data.
-- `useCatalogView()` initializes selected region, exposes selected plan IDs, groups plans by region and plan type, and delegates selection toggling to the store.
-- `catalog.store.ts` owns catalog data cache, selected region ID, and selected subscription plan IDs.
-
-## Styling
-
-- Root `app/assets/styles/core.css` imports `layers/ui/app/assets/styles/core.css`.
-- UI core CSS imports reset, font declarations, and design tokens:
-  - `reset.css`
-  - `fonts.css`
-  - `variables.css`
-- Use existing CSS custom properties for colors, spacing, typography, and surfaces before adding new tokens.
-- Keep reusable component styles colocated with components. Avoid moving component-specific styles into global CSS.
-
-## Important Files
-
-- `nuxt.config.ts` — root Nuxt configuration, layer registration, route redirect, Pinia module, global CSS
-- `package.json` — npm scripts and dependency versions
-- `biome.json` — formatter/linter configuration
-- `tsconfig.json` — TS target and references to generated `.nuxt` configs
-- `app/app.vue` — root app shell with `UiProvider`, `NuxtRouteAnnouncer`, and `NuxtPage`
-- `app/assets/styles/core.css` — root global stylesheet entry
-- `layers/ui/app/assets/styles/variables.css` — design tokens
-- `layers/catalog/app/pages/catalog.vue` — catalog page
-- `layers/catalog/app/stores/catalog.store.ts` — catalog Pinia store
