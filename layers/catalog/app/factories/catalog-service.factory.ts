@@ -1,5 +1,6 @@
 import { CatalogServiceMockAdapter } from "~~/layers/catalog/app/services/adapters/catalog-service-mock.adapter";
 import type { ICatalogService } from "~~/layers/catalog/app/services/ports/catalog-service.port";
+import { PlanGroupsServiceFactory } from "~~/layers/plans/app/factories/plan-groups-service.factory";
 import { PlanTypesServiceFactory } from "~~/layers/plans/app/factories/plan-types-service.factory";
 import { SubscriptionPlansServiceFactory } from "~~/layers/plans/app/factories/subscription-plans-service.factory";
 import { RegionsServiceFactory } from "~~/layers/regions/app/factories/regions-service.factory";
@@ -11,6 +12,7 @@ export class CatalogServiceFactory {
 		return new CatalogServiceMockAdapter(
 			RegionsServiceFactory.getInstance(),
 			PlanTypesServiceFactory.getInstance(),
+			PlanGroupsServiceFactory.getInstance(),
 			SubscriptionPlansServiceFactory.getInstance(),
 		);
 	}
