@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import CatalogPlanTypeSectionEmptyState
+  from "#layers/catalog/app/components/CatalogPlanTypeSection/components/CatalogPlanTypeSectionEmptyState/CatalogPlanTypeSectionEmptyState.vue";
 import UiTooltip from "#layers/ui/app/components/UiTooltip/UiTooltip.vue";
 import styles from "./CatalogPlanTypeSection.module.css";
 import {type ICatalogPlanTypeSectionProps, useCatalogPlanTypeSection,} from "./use-catalog-plan-type-section";
@@ -21,7 +23,7 @@ const { title, subscriptionPlanGroups, planGroupInfoByID } =
 
     <CatalogPlanTypeSectionEmptyState v-if="subscriptionPlanGroups.length === 0" />
 
-    <template v-else v-for="group in subscriptionPlanGroups" :key="group.planGroup.id">
+    <template v-for="group in subscriptionPlanGroups" :key="group.planGroup.id">
       <div v-if="planGroupInfoByID[group.planGroup.id]" :class="styles.info">
         {{ planGroupInfoByID[group.planGroup.id] }}
       </div>
