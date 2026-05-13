@@ -32,6 +32,8 @@ const selectedMode = ref<"subscriptions" | "giftCards">("subscriptions")
           />
         </div>
       </template>
+
+      <CatalogGiftCardsEmptyState v-else class="content" />
     </template>
   </div>
 </template>
