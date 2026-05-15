@@ -1,6 +1,6 @@
 <template>
-  <UiProvider>
-    <NuxtRouteAnnouncer />
-    <NuxtPage />
-  </UiProvider>
+	<UiProvider>
+		<NuxtRouteAnnouncer />
+		<NuxtPage />
+	</UiProvider>
 </template>

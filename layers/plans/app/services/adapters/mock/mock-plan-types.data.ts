@@ -1,5 +1,5 @@
-import { fakerRU, simpleFaker } from "@faker-js/faker";
-import type { IPlanTypeDTO } from "~~/layers/plans/app/dto/plan-types.dto";
+import { fakerRU, simpleFaker } from "@faker-js/faker"
+import type { IPlanTypeDTO } from "~~/layers/plans/app/dto/plan-types.dto"
 
 export const MOCK_PLAN_TYPES = [
 	{
@@ -30,4 +30,4 @@ export const MOCK_PLAN_TYPES = [
 		description: fakerRU.lorem.paragraph(),
 		accountsCount: 3,
 	},
-] satisfies IPlanTypeDTO[];
+] satisfies IPlanTypeDTO[]

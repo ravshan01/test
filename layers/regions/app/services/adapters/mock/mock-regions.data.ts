@@ -1,6 +1,6 @@
-import { simpleFaker } from "@faker-js/faker";
-import type { IRegionDTO } from "#layers/regions/app/dto/regions.dto";
-import icon from "./mock-default-flag.svg";
+import type { IRegionDTO } from "#layers/regions/app/dto/regions.dto"
+import { simpleFaker } from "@faker-js/faker"
+import icon from "./mock-default-flag.svg"
 
 export const MOCK_REGIONS = [
 	{
@@ -33,4 +33,4 @@ export const MOCK_REGIONS = [
 		code: "BR" as const,
 		flag: icon,
 	},
-] satisfies IRegionDTO[];
+] satisfies IRegionDTO[]

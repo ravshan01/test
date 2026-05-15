@@ -1,5 +1,5 @@
-import type { ICatalogDTO } from "~~/layers/catalog/app/dto/catalog.dto";
+import type { ICatalogDTO } from "~~/layers/catalog/app/dto/catalog.dto"
 
 export interface ICatalogService {
-	getAll(): Promise<ICatalogDTO>;
+	getAll(): Promise<ICatalogDTO>
 }

@@ -13,4 +13,4 @@ export default defineNuxtConfig({
 	},
 	modules: ["@pinia/nuxt"],
 	css: ["~/assets/styles/core.css"],
-});
+})

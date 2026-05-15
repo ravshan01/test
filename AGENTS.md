@@ -11,7 +11,7 @@ Nuxt 4 application with TypeScript using a layered hexagonal architecture. The a
 - **State:** Pinia `^3.0.4` via `@pinia/nuxt`
 - **UI:** `radix-vue` headless primitives, local Vue components, CSS Modules where used
 - **Styling:** CSS custom properties, `the-new-css-reset`, Inter Display font from `public/fonts/`
-- **Linter/Formatter:** Biome `2.4.15` (no ESLint, no Prettier)
+- **Linter/Formatter:** ESLint, Prettier
 - **Mock Data:** `@faker-js/faker` with Russian locale data. Current mock data is generated at module-load time, not per request.
 - **Package Manager:** npm (`package-lock.json` is committed)
 
@@ -22,10 +22,10 @@ npm run dev              # Start Nuxt dev server
 npm run build            # Production build
 npm run generate         # Static site generation
 npm run preview          # Preview production build
-npx biome check .        # Lint + format check
-npx biome check --write . # Lint + format fix
-npx biome format --write . # Format only
-npx biome lint --write . # Lint only
+npm run lint             # Lint check
+npm run lint:fix         # Lint fix
+npm run format           # Format only
+npm run check            # Format + Lint fix
 npx nuxt prepare         # Regenerate .nuxt types/config
 npx tsc --noEmit         # Typecheck after Nuxt types exist
 ```
@@ -37,24 +37,19 @@ No test framework or test command exists yet.
 - **Indentation:** Tabs
 - **Quotes:** Double quotes in JS/TS
 - **Semicolons:** Omit semicolons
-- **Imports:** Let Biome organize imports (`assist.actions.source.organizeImports` is enabled)
-- **Linter:** Biome recommended rules; `noStaticOnlyClass`, `noNonNullAssertion`, and `noSvgWithoutTitle` are disabled
+- **Imports:** Let Prettier organize imports (`prettier-plugin-organize-imports` is enabled)
+- **Linter:** ESLint with TypeScript and Vue plugins; `noNonNullAssertion` is disabled
 - **Comments:** Do not add comments unless explicitly requested or needed to clarify non-obvious logic
 - **CSS:** Prefer CSS Modules named `<ComponentName>.module.css` and imported as `styles` for reusable components. Existing pages may still use scoped CSS.
 - **Static assets:** Keep component-local images in an `images/` folder and import them through Vite, e.g. `import icon from "./images/icon.svg"`. Keep fonts in `public/fonts/`.
-- **Formatting note:** Some existing Vue files are not fully Biome-formatted yet. New edits should follow Biome style rather than copying inconsistent spacing or single quotes.
+- **Formatting note:** Some existing Vue files are not fully formatted yet. New edits should follow Prettier style rather than copying inconsistent spacing or single quotes.
 
 ## Nuxt Layers
 
 The root `nuxt.config.ts` registers layers via `extends` in this order:
 
 ```ts
-[
-	"./layers/ui",
-	"./layers/regions",
-	"./layers/plans",
-	"./layers/catalog",
-]
+;["./layers/ui", "./layers/regions", "./layers/plans", "./layers/catalog"]
 ```
 
 Current layers:

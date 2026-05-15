@@ -1,5 +1,5 @@
-import { fakerRU, simpleFaker } from "@faker-js/faker";
-import type { IRegionDTO } from "../../../dto/regions.dto";
+import { fakerRU, simpleFaker } from "@faker-js/faker"
+import type { IRegionDTO } from "../../../dto/regions.dto"
 
 export function createMockRegion(): IRegionDTO {
 	return {
@@ -7,5 +7,5 @@ export function createMockRegion(): IRegionDTO {
 		name: fakerRU.location.country(),
 		code: fakerRU.location.countryCode(),
 		flag: "/default-flag.svg",
-	};
+	}
 }
