@@ -13,4 +13,8 @@ export default defineNuxtConfig({
 	},
 	modules: ["@pinia/nuxt"],
 	css: ["~/assets/styles/core.css"],
+	typescript: {
+		typeCheck: true,
+		strict: true,
+	},
 })
