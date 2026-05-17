@@ -1,43 +1,47 @@
 <script setup lang="ts">
-import CatalogPlanTypeSectionEmptyState
-  from "#layers/catalog/app/components/CatalogPlanTypeSection/components/CatalogPlanTypeSectionEmptyState/CatalogPlanTypeSectionEmptyState.vue";
-import UiTooltip from "#layers/ui/app/components/UiTooltip/UiTooltip.vue";
-import styles from "./CatalogPlanTypeSection.module.css";
-import {type ICatalogPlanTypeSectionProps, useCatalogPlanTypeSection,} from "./use-catalog-plan-type-section";
+import CatalogPlanTypeSectionEmptyState from "#layers/catalog/app/components/CatalogPlanTypeSection/components/CatalogPlanTypeSectionEmptyState/CatalogPlanTypeSectionEmptyState.vue"
+import UiTooltip from "#layers/ui/app/components/UiTooltip/UiTooltip.vue"
+import styles from "./CatalogPlanTypeSection.module.css"
+import {
+	type ICatalogPlanTypeSectionProps,
+	useCatalogPlanTypeSection,
+} from "./use-catalog-plan-type-section"
 
-const props = defineProps<ICatalogPlanTypeSectionProps>();
+const props = defineProps<ICatalogPlanTypeSectionProps>()
 const emits = defineEmits<{
-	toggleSelect: [id: string];
-}>();
+	toggleSelect: [id: string]
+}>()
 
 const { title, subscriptionPlanGroups, planGroupInfoByID } =
-	useCatalogPlanTypeSection(props as unknown as ICatalogPlanTypeSectionProps);
+	useCatalogPlanTypeSection(props as unknown as ICatalogPlanTypeSectionProps)
 </script>
 
 <template>
-  <div :class="styles.root">
-    <div :class="styles.header">
-      <p :class="styles.title">{{ title }}</p>
-      <UiTooltip :content="planType.description" />
-    </div>
+	<div :class="styles.root">
+		<div :class="styles.header">
+			<p :class="styles.title">{{ title }}</p>
+			<UiTooltip :content="planType.description" />
+		</div>
 
-    <CatalogPlanTypeSectionEmptyState v-if="subscriptionPlanGroups.length === 0" />
+		<CatalogPlanTypeSectionEmptyState
+			v-if="subscriptionPlanGroups.length === 0"
+		/>
 
-    <template v-for="group in subscriptionPlanGroups" :key="group.planGroup.id">
-      <div v-if="planGroupInfoByID[group.planGroup.id]" :class="styles.info">
-        {{ planGroupInfoByID[group.planGroup.id] }}
-      </div>
+		<template v-for="group in subscriptionPlanGroups" :key="group.planGroup.id">
+			<div v-if="planGroupInfoByID[group.planGroup.id]" :class="styles.info">
+				{{ planGroupInfoByID[group.planGroup.id] }}
+			</div>
 
-      <div :class="styles.body">
-        <SubscriptionPlanCard
-          v-for="el in group.subscriptionPlans"
-          :key="el.id"
-          :data="el"
-          :planType="planType"
-          :isSelected="selectedIDs.includes(el.id)"
-          @click="emits('toggleSelect', el.id)"
-        />
-      </div>
-    </template>
-  </div>
+			<div :class="styles.body">
+				<SubscriptionPlanCard
+					v-for="el in group.subscriptionPlans"
+					:key="el.id"
+					:data="el"
+					:plan-type="planType"
+					:is-selected="selectedIDs.includes(el.id)"
+					@click="emits('toggleSelect', el.id)"
+				/>
+			</div>
+		</template>
+	</div>
 </template>

@@ -6,7 +6,11 @@
 		"build": "nuxt build",
 		"dev": "nuxt dev",
 		"generate": "nuxt generate",
-		"preview": "nuxt preview"
+		"preview": "nuxt preview",
+		"lint": "eslint .",
+		"lint:fix": "eslint . --fix",
+		"format": "prettier --write .",
+		"check": "npm run format && npm run lint:fix"
 	},
 	"dependencies": {
 		"@faker-js/faker": "^10.4.0",
@@ -19,7 +23,14 @@
 		"vue-router": "^5.0.6"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "2.4.15",
-		"typescript": "^6.0.3"
+		"eslint": "^10.4.0",
+		"eslint-config-prettier": "^10.1.8",
+		"eslint-plugin-vue": "^10.9.1",
+		"prettier": "^3.8.3",
+		"prettier-plugin-organize-imports": "^4.3.0",
+		"typescript": "^6.0.3",
+		"typescript-eslint": "^8.59.3",
+		"vue-eslint-parser": "^10.4.0",
+		"vue-tsc": "^3.2.9"
 	}
 }

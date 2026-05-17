@@ -1,5 +1,5 @@
-import type { IPlanGroupDTO } from "../../dto/plan-groups.dto";
+import type { IPlanGroupDTO } from "../../dto/plan-groups.dto"
 
 export interface IPlanGroupsService {
-	find(): Promise<IPlanGroupDTO[]>;
+	find(): Promise<IPlanGroupDTO[]>
 }

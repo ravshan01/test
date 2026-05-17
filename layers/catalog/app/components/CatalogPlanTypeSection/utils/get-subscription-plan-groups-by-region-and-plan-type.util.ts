@@ -1,23 +1,23 @@
-import type { IPlanGroupDTO } from "#layers/plans/app/dto/plan-groups.dto";
-import type { IPlanTypeDTO } from "#layers/plans/app/dto/plan-types.dto";
-import type { ISubscriptionPlanDTO } from "#layers/plans/app/dto/subscription-plans.dto";
-import type { IRegionDTO } from "#layers/regions/app/dto/regions.dto";
+import type { IPlanGroupDTO } from "#layers/plans/app/dto/plan-groups.dto"
+import type { IPlanTypeDTO } from "#layers/plans/app/dto/plan-types.dto"
+import type { ISubscriptionPlanDTO } from "#layers/plans/app/dto/subscription-plans.dto"
+import type { IRegionDTO } from "#layers/regions/app/dto/regions.dto"
 
 export interface ISubscriptionPlanGroupView {
-	planGroup: IPlanGroupDTO;
-	regions: IRegionDTO[];
-	subscriptionPlans: ISubscriptionPlanDTO[];
+	planGroup: IPlanGroupDTO
+	regions: IRegionDTO[]
+	subscriptionPlans: ISubscriptionPlanDTO[]
 }
 
 export function getSubscriptionPlanGroupsByRegionAndPlanType(payload: {
-	regionID: IRegionDTO["id"];
-	planTypeID: IPlanTypeDTO["id"];
-	regions: IRegionDTO[];
-	planGroups: IPlanGroupDTO[];
-	subscriptionPlans: ISubscriptionPlanDTO[];
+	regionID: IRegionDTO["id"]
+	planTypeID: IPlanTypeDTO["id"]
+	regions: IRegionDTO[]
+	planGroups: IPlanGroupDTO[]
+	subscriptionPlans: ISubscriptionPlanDTO[]
 }): ISubscriptionPlanGroupView[] {
 	const { regionID, planTypeID, regions, planGroups, subscriptionPlans } =
-		payload;
+		payload
 
 	return planGroups
 		.filter(
@@ -32,5 +32,5 @@ export function getSubscriptionPlanGroupsByRegionAndPlanType(payload: {
 			subscriptionPlans: subscriptionPlans.filter(
 				(plan) => plan.groupID === planGroup.id,
 			),
-		}));
+		}))
 }

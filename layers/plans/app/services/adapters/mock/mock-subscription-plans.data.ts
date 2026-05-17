@@ -1,10 +1,10 @@
-import { simpleFaker } from "@faker-js/faker";
-import type { IPlanGroupDTO } from "~~/layers/plans/app/dto/plan-groups.dto";
-import type { ISubscriptionPlanDTO } from "~~/layers/plans/app/dto/subscription-plans.dto";
+import { simpleFaker } from "@faker-js/faker"
+import type { IPlanGroupDTO } from "~~/layers/plans/app/dto/plan-groups.dto"
+import type { ISubscriptionPlanDTO } from "~~/layers/plans/app/dto/subscription-plans.dto"
 import {
 	MOCK_PLAN_GROUPS_BY_TYPE_CODE,
 	type MockPlanTypeCode,
-} from "./mock-plan-groups.data";
+} from "./mock-plan-groups.data"
 
 const SUBSCRIPTION_PLAN_SEEDS_BY_TYPE_CODE = {
 	Individual: {
@@ -23,7 +23,7 @@ const SUBSCRIPTION_PLAN_SEEDS_BY_TYPE_CODE = {
 		months: [6],
 		color: "#C4B1D4",
 	},
-} satisfies Record<MockPlanTypeCode, { months: number[]; color: string }>;
+} satisfies Record<MockPlanTypeCode, { months: number[]; color: string }>
 
 export const MOCK_SUBSCRIPTION_PLANS = Object.entries(
 	SUBSCRIPTION_PLAN_SEEDS_BY_TYPE_CODE,
@@ -36,17 +36,17 @@ export const MOCK_SUBSCRIPTION_PLANS = Object.entries(
 			color: seed.color,
 		}),
 	),
-);
+)
 
 export function createMockSubscriptionPlan(options: {
-	groupID: IPlanGroupDTO["id"];
-	months: number;
-	color: string;
+	groupID: IPlanGroupDTO["id"]
+	months: number
+	color: string
 }): ISubscriptionPlanDTO {
-	const { groupID, months, color } = options;
+	const { groupID, months, color } = options
 
-	const DEFAULT_PRICE = 263;
-	const DEFAULT_CURRENCY = "₽";
+	const DEFAULT_PRICE = 263
+	const DEFAULT_CURRENCY = "₽"
 
 	return {
 		id: simpleFaker.string.uuid(),
@@ -56,5 +56,5 @@ export function createMockSubscriptionPlan(options: {
 		currency: DEFAULT_CURRENCY,
 		color: color,
 		isActive: true,
-	};
+	}
 }
